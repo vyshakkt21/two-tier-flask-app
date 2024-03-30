@@ -1,0 +1,50 @@
+docker run -d --name mysql_container -e MYSQL_ROOT_PASSWORD=test@123 -v /home/vyshak/volumes/mysql_data
+:/var/lib/mysql mysql:latest
+
+/home/vyshak/volumes/mysql_data
+
+
+docker run -d --name mysqln_container1 -e MYSQL_ROOT_PASSWORD=test@123 -v /home/vyshak/volumes/mysql_data:/var/lib/mysql mysql:latest
+
+CREATE DATABASE your_database_name;
+
+SHOW DATABASES;
+
+use database;
+
+
+-- Step 1: Create a Table
+CREATE TABLE vysdb (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    age INT,
+    department VARCHAR(100)
+);
+
+-- Step 2: Insert Values
+INSERT INTO vysdb (name, age, department) VALUES
+('John Doe', 30, 'HR'),
+('Jane Smith', 25, 'Marketing'),
+('Alice Johnson', 35, 'Finance');
+
+SHOW TABLES;
+MYSQL_HOST
+
+
+=====DB Creation==
+docker run -d -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=test@123 -e MYSQL_USER=admin -e MYSQL_PASSWORD=admin -e MYSQL_DATABASE=vysdb --network dev-network mysql:latest
+===
+====App Creation====
+
+docker run -d -p 5000:5000 --name testflaskapp -e MYSQL_HOST=mysql -e MYSQL_USER=admin -e MYSQL_PASSWORD=admin -e MYSQL_DB=vysdb --network dev-network twotierapp-backend:latest
+
+=====Prod DB Creation==
+docker run -d -p 3307:3306 --name mysql-prod -e MYSQL_ROOT_PASSWORD=test@123 -e MYSQL_USER=admin -e MYSQL_PASSWORD=admin -e MYSQL_DATABASE=vysdb-prod --network prod-network mysql:latest
+
+====Prod App Creation====
+
+docker run -d -p 5001:5000 --name prodflaskapp -e MYSQL_HOST=mysql-prod -e MYSQL_USER=admin -e MYSQL_PASSWORD=admin -e MYSQL_DB=vysdb-prod --network prod-network twotierapp-backend:latest
+
+
+
+
