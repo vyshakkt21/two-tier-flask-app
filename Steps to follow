@@ -44,7 +44,8 @@ docker run -d -p 3307:3306 --name mysql-prod -e MYSQL_ROOT_PASSWORD=test@123 -e 
 ====Prod App Creation====
 
 docker run -d -p 5001:5000 --name prodflaskapp -e MYSQL_HOST=mysql-prod -e MYSQL_USER=admin -e MYSQL_PASSWORD=admin -e MYSQL_DB=vysdb-prod --network prod-network twotierapp-backend:latest
+====================
 
-
+sudo apt  install docker-compose 
 
 
